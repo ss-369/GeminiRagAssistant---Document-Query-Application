@@ -103,4 +103,3 @@ pip install Flask werkzeug PyPDF2 docx2txt google-generativeai sentence-transfor
 - **Agentic RAG**: Employs a more agent-like approach to RAG, potentially involving iterative retrieval, context analysis, and more complex reasoning to generate responses. (Note: Agentic RAG functionality may be under development or less fully featured than Self-RAG).
 
 ---
-This README provides a functional overview of the GeminiRagAssistant application. For detailed implementation, please refer to the source code in the respective Python files.
