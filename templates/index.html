@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-RAG with Gemini 2.0 Flash</title>
+    <link rel="stylesheet" href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-stars me-2"></i>
+                Gemini Advanced RAG Assistant
+            </a>
+            <div class="d-flex">
+                <span class="navbar-text">
+                    <span class="badge bg-info">
+                        <i class="bi bi-gear-fill me-1"></i>
+                        Self-RAG &amp; Agentic RAG
+                    </span>
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row mb-4">
+            <div class="col-lg-8 mx-auto">
+                <div class="card bg-dark border-info mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title"><i class="bi bi-lightbulb me-2"></i>Advanced RAG Capabilities</h4>
+                        <p class="card-text">This application offers two powerful RAG modes:</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card bg-dark border-primary mb-3 h-100">
+                                    <div class="card-header bg-primary bg-opacity-25">
+                                        <h5 class="card-title mb-0"><i class="bi bi-filter-circle me-2"></i>Self-RAG</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">Improves response quality by:</p>
+                                        <ul class="small">
+                                            <li><strong>Evaluating relevance</strong> of retrieved information</li>
+                                            <li><strong>Filtering out</strong> less relevant context</li>
+                                            <li><strong>Analyzing sufficiency</strong> of information</li>
+                                            <li><strong>Retrieving additional context</strong> when needed</li>
+                                        </ul>
+                                        <p class="card-text small text-muted">Faster, with real-time relevance evaluation.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="card bg-dark border-info mb-3 h-100">
+                                    <div class="card-header bg-info bg-opacity-25">
+                                        <h5 class="card-title mb-0"><i class="bi bi-robot me-2"></i>Agentic RAG</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">Takes autonomous actions to:</p>
+                                        <ul class="small">
+                                            <li><strong>Reformulate queries</strong> for better retrieval</li>
+                                            <li><strong>Iteratively analyze</strong> context quality</li>
+                                            <li><strong>Generate follow-up queries</strong> to fill gaps</li>
+                                            <li><strong>Synthesize context</strong> for optimal responses</li>
+                                        </ul>
+                                        <p class="card-text small text-muted">More thorough, but takes longer to process.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Document Upload Section -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="bi bi-file-earmark-text me-2"></i>Upload Documents</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="upload-form" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="document" class="form-label">Select a document (.pdf, .docx, .txt)</label>
+                                <input class="form-control" type="file" id="document" name="file" accept=".pdf,.docx,.doc,.txt">
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-cloud-upload me-2"></i>Upload
+                            </button>
+                        </form>
+                        <div id="upload-status" class="mt-3 d-none">
+                            <div class="alert alert-info" role="alert">
+                                <div class="d-flex align-items-center">
+                                    <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                                    <div>Processing document...</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="upload-result" class="mt-3 d-none"></div>
+                    </div>
+                </div>
+
+                <!-- Query Section -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="bi bi-question-circle me-2"></i>Ask Questions</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="query-form">
+                            <div class="mb-3">
+                                <label for="query" class="form-label">Your question about the document</label>
+                                <textarea class="form-control" id="query" rows="3" placeholder="What would you like to know about the document?"></textarea>
+                            </div>
+                            
+                            <!-- RAG Mode Selection -->
+                            <div class="mb-3">
+                                <label class="form-label d-block">RAG Mode</label>
+                                <div class="btn-group" role="group" aria-label="RAG Mode Selection">
+                                    <input type="radio" class="btn-check" name="rag-mode" id="rag-mode-self" value="self" checked>
+                                    <label class="btn btn-outline-primary" for="rag-mode-self">
+                                        <i class="bi bi-filter-circle me-1"></i> Self-RAG
+                                    </label>
+                                    
+                                    <input type="radio" class="btn-check" name="rag-mode" id="rag-mode-agent" value="agent">
+                                    <label class="btn btn-outline-info" for="rag-mode-agent">
+                                        <i class="bi bi-robot me-1"></i> Agentic RAG
+                                    </label>
+                                </div>
+                                <small class="form-text text-muted mt-2 d-block">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    Agentic RAG uses autonomous actions to improve retrieval quality but takes more time.
+                                </small>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-send me-2"></i>Ask
+                            </button>
+                        </form>
+                        <div id="query-status" class="mt-3 d-none">
+                            <div class="alert alert-info" role="alert">
+                                <div class="d-flex align-items-center">
+                                    <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                                    <div id="query-status-message">Generating response...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Response Section -->
+                <div id="response-container" class="card mb-4 d-none">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="bi bi-robot me-2"></i>Gemini Response</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="response-content"></div>
+                    </div>
+                </div>
+
+                <!-- Sources Section -->
+                <div id="sources-container" class="card mb-4 d-none">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="bi bi-bookmark me-2"></i>Sources</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="sources-content">
+                            <div class="list-group" id="sources-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-light py-3 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">Advanced RAG Application with Gemini 2.0 Flash | <small>Featuring Self-RAG and Agentic RAG capabilities</small></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

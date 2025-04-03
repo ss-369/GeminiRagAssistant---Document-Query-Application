@@ -1,0 +1,71 @@
+/* Additional custom styles for the RAG application */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: var(--bs-dark);
+    border-bottom: 1px solid var(--bs-gray-700);
+}
+
+#response-content {
+    white-space: pre-wrap;
+    line-height: 1.6;
+}
+
+.source-item {
+    background-color: var(--bs-dark);
+    border: 1px solid var(--bs-gray-700);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.source-relevant {
+    border-left: 4px solid var(--bs-success);
+    background-color: rgba(25, 135, 84, 0.1);
+}
+
+.source-filtered {
+    opacity: 0.7;
+    border-left: 4px solid var(--bs-secondary);
+}
+
+/* Self-RAG metrics styling */
+.self-rag-metrics {
+    background-color: var(--bs-dark);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--bs-gray-700);
+}
+
+footer {
+    margin-top: auto;
+}
+
+.alert-success {
+    background-color: var(--bs-success-bg-subtle);
+    color: var(--bs-success-text);
+    border-color: var(--bs-success);
+}
+
+.alert-danger {
+    background-color: var(--bs-danger-bg-subtle);
+    color: var(--bs-danger-text);
+    border-color: var(--bs-danger);
+}
+
+.alert-info {
+    background-color: var(--bs-info-bg-subtle);
+    color: var(--bs-info-text);
+    border-color: var(--bs-info);
+}
