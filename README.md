@@ -116,10 +116,14 @@ The application will be available at http://localhost:5000
 
 ## Usage Guide
 
+![Application UI](screenshots/rag_app_ui.png)
+
 1. **Upload a Document**:
    - Click on the "Upload Documents" section
    - Select a document (PDF, DOCX, or TXT format)
    - Wait for processing (document will be chunked and embedded)
+
+   ![Document Upload](screenshots/doc_upload.png)
 
 2. **Ask Questions**:
    - Type your question in the query box
@@ -132,6 +136,15 @@ The application will be available at http://localhost:5000
    - The answer will be displayed in the response section
    - You can see which sources were used and their relevance
    - For Agentic RAG, you'll see additional metrics like context quality and follow-up queries
+
+   **Example Outputs:**
+
+   *Self-RAG:*
+   ![Self-RAG Output](screenshots/self_rag_output.png)
+
+   *Agentic RAG:*
+   ![Agentic RAG Output](screenshots/agentic_rag_output.png)
+
 
 ## How It Works
 
